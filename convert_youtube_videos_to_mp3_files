@@ -1,0 +1,31 @@
+# importing packages
+from pytube import YouTube
+import os
+
+# this is the list of videos to download
+videos = [
+    'https://www.youtube.com/watch?v=v_JgS3WSfaI',
+    'https://www.youtube.com/watch?v=c7G7dg7psvE',
+    'https://www.youtube.com/watch?v=4EePHhQra8U',
+    'https://www.youtube.com/watch?v=4J51mRpDa5o',
+    ]
+
+
+
+for vid in videos:
+
+    yt = YouTube(vid)
+  
+    # extract only audio
+    video = yt.streams.filter(only_audio=True).first()
+      
+    # download the file
+    out_file = video.download()
+      
+    # save the file
+    base, ext = os.path.splitext(out_file)
+    new_file = base + '.mp3'
+    os.rename(out_file, new_file)
+      
+    # result of success
+    print(yt.title + " has been successfully downloaded.")
